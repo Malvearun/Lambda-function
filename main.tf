@@ -1,5 +1,5 @@
 provider "aws" {
-  region     = "eu-west-2"
+  region = "${var.aws_region}"
 }
 
 resource "aws_s3_bucket" "lambda-exercise" {
