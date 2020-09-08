@@ -1,25 +1,23 @@
 provider "aws" {
   region     = "eu-west-2"
-  access_key = "AKIA56KP4NDAIS3CJPPQ"
-  secret_key = "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"
 }
 
-resource "aws_s3_bucket" "Lambda-exercise" {
-  bucket = "Lambda-exercise"
+resource "aws_s3_bucket" "lambda-exercise" {
+  bucket = "lambda-exercise"
   acl    = "private"
 }
 
 resource "aws_lambda_function" "test_lambda" {
   function_name = "lambda_function_name"
-  s3_bucket = "Lambda-exercise"
+  s3_bucket = "lambda-exercise"
   s3_key = "lambda.zip"
   role          = aws_iam_role.iam_lambda.arn
   handler       = "lambda_handler"
-  runtime = "python 3.7"
+  runtime = "python3.7"
 
   environment {
     variables = {
-      greeting = "Hello Lambda"
+      greeting = "Hello-lambda-greeting"
     }
   }
 }
@@ -44,9 +42,7 @@ resource "aws_iam_role" "iam_lambda" {
 EOF
 }
 
-# aws s3api create-bucket --bucket=lambda-exercise --region=eu-west-2
-# zip lambda.zip
-# aws s3 cp lambda.zip s3://lambda-exercise/lambda.zip
+
 # terraform init
 # terraform plan
 # terraform apply
